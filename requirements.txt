@@ -4,4 +4,4 @@ pandas
 datetime
 matplotlib
 seaborn 
-LabelEncoder
+scikit-learn
