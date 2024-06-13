@@ -1,5 +1,4 @@
 import joblib
-model = joblib.load('modelrfop.pkl')
 import streamlit as st
 import pandas as pd
 import datetime
@@ -7,15 +6,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 
+
+# Load the compressed model
+model = joblib.load('modellinear.pkl')
+
+
 # Design the Streamlit app
 st.title('Resale Price Prediction')
 
-towns = ['ANG MO KIO', 'BEDOK', 'BISHAN', 'BUKIT BATOK', 'BUKIT MERAH',
-       'BUKIT PANJANG', 'BUKIT TIMAH', 'CENTRAL AREA', 'CHOA CHU KANG',
-       'CLEMENTI', 'GEYLANG', 'HOUGANG', 'JURONG EAST', 'JURONG WEST',
-       'KALLANG/WHAMPOA', 'MARINE PARADE', 'PASIR RIS', 'QUEENSTOWN',
-       'SENGKANG', 'SERANGOON', 'TAMPINES', 'TOA PAYOH', 'WOODLANDS',
-       'YISHUN', 'SEMBAWANG', 'PUNGGOL', 'LIM CHU KANG']
+# #towns = ['ANG MO KIO', 'BEDOK', 'BISHAN', 'BUKIT BATOK', 'BUKIT MERAH',
+#        'BUKIT PANJANG', 'BUKIT TIMAH', 'CENTRAL AREA', 'CHOA CHU KANG',
+#        'CLEMENTI', 'GEYLANG', 'HOUGANG', 'JURONG EAST', 'JURONG WEST',
+#        'KALLANG/WHAMPOA', 'MARINE PARADE', 'PASIR RIS', 'QUEENSTOWN',
+#        'SENGKANG', 'SERANGOON', 'TAMPINES', 'TOA PAYOH', 'WOODLANDS',
+#        'YISHUN', 'SEMBAWANG', 'PUNGGOL', 'LIM CHU KANG']
 
 
 
@@ -25,12 +29,12 @@ st.sidebar.title('Input Features')
 month_input = st.sidebar.text_input('Enter the month (YYYY-MM):', '2024-06')
 
 
-town = st.sidebar.selectbox('Select Town',towns)
-# Initialize LabelEncoder
-label_encoder = LabelEncoder()
+# town = st.sidebar.selectbox('Select Town',towns)
+# # Initialize LabelEncoder
+# label_encoder = LabelEncoder()
 
-label_encoder.fit(towns)
-encoded_town = label_encoder.transform([town])[0]
+# label_encoder.fit(towns)
+# encoded_town = label_encoder.transform([town])[0]
 
 # Convert month to ordinal value
 try:
@@ -59,8 +63,8 @@ if st.button('Predict'):
              'No_of_Rooms' : [No_of_rooms],
             'storey':[storey],
             'floor_area_sqm':[floor_area_sqm],
-            'lease_commence_date' :[lease_commence_date],
-            'town_encoded':[encoded_town]
+            'lease_commence_date' :[lease_commence_date]
+            #'town_encoded':[encoded_town]
 
         }
     )
@@ -70,4 +74,5 @@ if st.button('Predict'):
     st.write(prediction[0])
 
     
+
 
